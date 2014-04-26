@@ -1,0 +1,90 @@
+https://s3-us-west-2.amazonaws.com/tlab/resource/atom.zip
+
+<!DOCTYPE.html>
+<html>
+  <head>
+    <style>
+    body {
+      background: #00FF80
+    }
+    h1 {
+        font-size: 60px;
+        color:black;
+        text-align: center;
+      }
+    button {
+      border: solid 2px black;
+      border-radius: 50px;
+      display: block;
+      margin-top: 10px;
+      margin-left: auto;
+      margin-right: auto;
+      width: 200px;
+      height: 50px;
+      background: green;
+      color: white;
+      font-size: 20px;
+    }
+    input {
+
+      display: block;
+      margin-left:auto;
+      margin-right:auto;
+      text-align: center;
+      height: 40px;
+      width: 500px;
+      font-size: 22px;
+
+    }
+
+    </style>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script type='text/javascript' src='https://cdn.firebase.com/js/client/1.0.11/firebase.js'></script>
+    <script type="text/javascript">
+    var firebase;
+    var compliments = ["nice hair", 'usurp!'];
+    function addRandomCompliment() {
+        var index = 0;
+        index=Math.floor(Math.random() * compliments.length);
+        $('h1').text(compliments[index]);
+      }
+    function notSwearing() {
+        /*var said = $('input.').val
+        if (said.indexOf('egads') >= 0) {
+          alert("You Sweared");
+          return false;
+        }
+        if (said.indexOf('heck') >= 0) {
+          alert("You Sweared");
+          return false;
+        }*/
+        return true;
+    }
+
+    function submitClicked () {
+      if ($('input').val().length > 0 && notSwearing() ){
+          var whatever;
+          whatever = $('input').val();
+          compliments.push(whatever);
+          firebase.push(whatever);
+          addRandomCompliment();
+          $('input').val('');
+        }
+    }
+
+    function setup() {
+        firebase=new Firebase("https://compliments.firebaseio.com/")
+        $('button').click(submitClicked);
+    }
+    $(document).ready(setup);
+
+    </script>
+
+  </head>
+  <body>
+    <h1>Malodorous<em> Mouse</em>!</h1>
+    <input placeholder="Type a compliment">
+    <button>submit</button>
+  </body>
+
+  <html>
